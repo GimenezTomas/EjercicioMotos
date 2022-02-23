@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ModalService } from 'src/app/services/modal.service';
 import { ModalComponent } from '../modal/modal.component';
 
@@ -8,11 +8,12 @@ import { ModalComponent } from '../modal/modal.component';
   styleUrls: ['./list.component.css']
 })
 export class ListComponent implements OnInit {
+  @Input() hora:any
 
   constructor(private modalService: ModalService) { }
 
   ngOnInit(): void {
-    
+
   }
 
   openModal(){

@@ -37,8 +37,10 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 var database = require('./basededatos.json');
 var express = require('express');
 var app = express();
+var cors = require('cors');
 var port = 3000;
 var fs = require('fs');
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.get('/intervalos', function (req, res) {
@@ -50,18 +52,17 @@ app.get('/intervalos', function (req, res) {
 });
 app.get('/motos/:intervalo?', function (req, res) {
     var motos = [];
-    console.log(req.query.intervalo);
     database.intervalos.find(function (intervalo) {
         if (intervalo.intervalo == req.query.intervalo) {
             motos = intervalo.motos;
             return;
         }
     });
+    console.log(motos);
     res.send(motos);
 });
-/*esta tiene que ser post, se le manda: intervalo, moto y cliente */
 app.post('/gestionReserva', function (req, res) {
-    console.log(req.body.intervalo);
+    console.log('haviendo reserva');
     var intervalo = req.body.intervalo;
     var id = req.body.id;
     var estado = req.body.estado;
@@ -78,36 +79,31 @@ app.post('/gestionReserva', function (req, res) {
             return;
         }
     });
-    /*fs.writeFile('./basededatos.json', JSON.stringify(database), (err) => {
-        if(err){
-            res.send('No se guardo con exito')
-            throw err;
-        }
-        res.send('Se guardo con exito')
-        console.log("JSON data is saved")
-    })*/
+    console.log('reserva exitosa');
     writeJSON('./basededatos.json', database);
+    res.send('Accion exitosa');
 });
 app.listen(port, function () {
     console.log('se levanto la api en el puerto ' + port);
 });
 function proximoIntervalo() {
-    var data = database.intervalos.forEach(function (element) {
-        if (element.motos.lenght == 0) {
-            for (var i = 1; i < 8; i++) {
-                element.motos.push(JSON.stringify({
+    var array = [];
+    database.intervalos.forEach(function (element) {
+        if (element.motos.length === 0 && array.length == 0) {
+            for (var i = 1; i < 9; i++) {
+                array.push({
                     "id": i,
                     "cliente": null,
-                    "estado": "libre"
-                }));
+                    "estado": "disponible"
+                });
             }
-            return;
+            element.motos = array;
         }
     });
-    writeJSON('./basededatos.json', data);
+    writeJSON('./basededatos.json', database);
 }
 function writeJSON(json, obj) {
-    fs.writeFile('json', JSON.stringify(obj), function (err) {
+    fs.writeFile(json, JSON.stringify(obj), function (err) {
         if (err) {
             throw err;
         }
@@ -116,25 +112,16 @@ function writeJSON(json, obj) {
     });
 }
 function limpiarRegistro() {
-    var database2 = database.intervalos.forEach(function (element) {
-        element.motos = JSON.stringify("");
+    database.intervalos.forEach(function (element) {
+        element.motos = [];
     });
-    writeJSON('./basededatos.json', JSON.stringify(database2));
-    console.log('entre');
-    console.log('entre');
-    console.log('entre');
-    console.log('entre');
-    console.log('entre');
-    console.log('entre');
-    console.log('entre');
-    console.log('entre');
+    writeJSON('./basededatos.json', database);
 }
 var CronJob = require('cron').CronJob;
-var job = new CronJob('1 * * * * *', function () {
+var job = new CronJob('30 * * * * *', function () {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
             proximoIntervalo();
-            console.log('prox');
             return [2 /*return*/];
         });
     });

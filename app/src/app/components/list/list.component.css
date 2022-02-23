@@ -1,10 +1,17 @@
 .cont{
-    width: 70%;
-    height: 50px;
-    display: flex;
-    margin: auto;
-    border: solid 2px grey;
-    border-radius: 25px;
+  width: 100%;
+  height: 50px;
+  background-color: white;
+  display: flex;
+  margin: auto;
+  border: solid 1px grey;
+  border-radius: 5px;
+  margin-top: 5px;
+  transition: 0.3s all;
+}
+
+.cont:hover{
+  border: solid 3px rgb(88, 88, 88);
 }
 
 .left ,.right{

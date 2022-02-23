@@ -1,9 +1,11 @@
 const database = require('./basededatos.json')
 const express = require('express') 
 const app = express()
+const cors = require('cors')
 const port = 3000
 const fs = require('fs')
 
+app.use(cors())
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -17,19 +19,18 @@ app.get('/intervalos', (req, res) => {
 
 app.get('/motos/:intervalo?', (req, res) => {
     let motos = []
-    console.log(req.query.intervalo)
     database.intervalos.find(function(intervalo){
         if(intervalo.intervalo == req.query.intervalo){
             motos = intervalo.motos
             return
         } 
     })
+    console.log(motos)
     res.send(motos)
 })
 
-/*esta tiene que ser post, se le manda: intervalo, moto y cliente */
 app.post('/gestionReserva', (req, res) => {
-    console.log(req.body.intervalo)
+    console.log('haviendo reserva')
     let intervalo = req.body.intervalo
     let id = req.body.id
     let estado = req.body.estado
@@ -48,16 +49,9 @@ app.post('/gestionReserva', (req, res) => {
         }
     })
 
-    /*fs.writeFile('./basededatos.json', JSON.stringify(database), (err) => {
-        if(err){
-            res.send('No se guardo con exito')
-            throw err;
-        }
-        res.send('Se guardo con exito')
-        console.log("JSON data is saved")
-    })*/
+    console.log('reserva exitosa')
     writeJSON('./basededatos.json', database)
-
+    res.send('Accion exitosa')
 })
 
 app.listen(port, () => {
@@ -65,26 +59,25 @@ app.listen(port, () => {
 })
 
 function proximoIntervalo(){
-    let data = database.intervalos.forEach(element => {
-        if(element.motos.lenght == 0){
-            for (let i = 1; i < 8; i++) {
-                element.motos.push(
-                    JSON.stringify({
-                        "id": i,
-                        "cliente": null,
-                        "estado": "libre"
-                    })
-                )
+    let array = []
+    database.intervalos.forEach(element => {
+        if(element.motos.length === 0 && array.length == 0){
+            for (let i = 1; i < 9; i++) {
+                array.push({
+                    "id": i,
+                    "cliente": null,
+                    "estado": "disponible"
+                })
             }
-            return
+            element.motos = array 
         }
     })
 
-    writeJSON('./basededatos.json', data)
+    writeJSON('./basededatos.json', database)
 }
 
 function writeJSON(json: string, obj){
-    fs.writeFile('json', JSON.stringify(obj), (err) => {
+    fs.writeFile(json, JSON.stringify(obj), (err) => {
         if(err){
             throw err;
         }
@@ -94,25 +87,15 @@ function writeJSON(json: string, obj){
 }
 
 function limpiarRegistro(){
-    let database2 = database.intervalos.forEach(element => {
-        element.motos = JSON.stringify("")
+    database.intervalos.forEach(element => {
+        element.motos = []
     })
-    writeJSON('./basededatos.json', JSON.stringify(database2))
-    console.log('entre')
-    console.log('entre')
-    console.log('entre')
-    console.log('entre')
-    console.log('entre')
-    console.log('entre')
-    console.log('entre')
-    console.log('entre')
-
+    writeJSON('./basededatos.json', database)
 }
 
 const CronJob = require('cron').CronJob;
-const job = new CronJob('1 * * * * *',  async function(){
+const job = new CronJob('30 * * * * *',  async function(){
     proximoIntervalo()
-    console.log('prox')
 });
 
 limpiarRegistro()

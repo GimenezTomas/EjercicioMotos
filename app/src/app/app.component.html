@@ -1,4 +1,5 @@
-<h1 (click)="openModal()">Planilla Motos</h1>
-<app-list></app-list>
-<app-modal *ngIf="modal == true"></app-modal>
+<div class="cont">
+  <app-list *ngFor="let intervalo of intervalos" [hora]="intervalo" (click)="openModal(intervalo)"></app-list>
+</div>
+<app-modal [intervalo]="intervalo" *ngIf="modal == true"></app-modal>
 <router-outlet></router-outlet>

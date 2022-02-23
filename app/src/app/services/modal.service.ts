@@ -9,4 +9,5 @@ export class ModalService {
   constructor() { }
 
   $modal = new EventEmitter<any>()
+  $modalCliente = new EventEmitter<any>()
 }
