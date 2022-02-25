@@ -1,15 +1,20 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { HttpService } from 'src/app/services/http.service';
 import { ModalService } from 'src/app/services/modal.service';
+import { faMotorcycle } from '@fortawesome/free-solid-svg-icons';
+import { faCaretRight } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-modal',
   templateUrl: './modal.component.html',
   styleUrls: ['./modal.component.css']
 })
+
 export class ModalComponent implements OnInit {
   @Input() intervalo: string =""
 
+  flechaIcono = faCaretRight
+  motoIcono = faMotorcycle
   cliente: any
   estado: string = ""
   id: number = 0
