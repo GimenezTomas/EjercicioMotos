@@ -12,15 +12,68 @@
 
 .modal-content {
   background-color: #fefefe;
-  margin: 15% auto;
-  padding: 20px;
+  padding: 13px;
   border: 1px solid #888;
-  width: 80%;
+  width: 35%;
+  border-radius: 15px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  height: fit-content;
 }
 
-.close {
-  color: #aaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
+.header{
+  width: 100%;
+  display: flex;
+}
+
+.header div{
+  margin-left: auto;
+}
+
+.header h2{
+  margin-top: 0;
+}
+
+.body{
+  width: 85%;
+  margin: auto;
+}
+
+input{
+  width: 100%;
+  border: none;
+  outline: none;
+  margin: auto;
+  font-size: 15px;
+  border-bottom: solid 1px grey;
+}
+
+input:focus{
+  border-color: green;
+}
+
+button{
+  width: 30%;
+  margin-top: 15px;
+  border-radius: 5px;
+  background-color: grey;
+  margin-left: auto;
+  border: solid 1px grey;
+}
+
+.invalid{
+  color: red
+}
+
+.body div
+{
+  display: flex;
+}
+
+.nn{
+  display: none;
 }

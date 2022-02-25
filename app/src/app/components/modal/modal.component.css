@@ -1,4 +1,8 @@
-.body{
+::-webkit-scrollbar {
+  display: none;
+}
+
+.modal{
   position: fixed;
   z-index: 1;
   left: 0;
@@ -10,47 +14,101 @@
   background-color: rgba(0,0,0,0.4);
 }
 
-.container{
+.modalContainer{
   background-color: #fefefe;
   margin: 3% auto; /* 15% from the top and centered */
   padding: 20px;
   border: 1px solid #888;
-  width: 90%;
+  border-radius: 15px;
+  width: 85%;
   height: 80%;
   list-style: none;
+  overflow: scroll;
 }
 
-.cont{
-  width: 70%;
-  height: 50px;
+.modal .modalContainer .close{
+  margin-left: auto;
+  width: fit-content;
+}
+
+.modal .modalContainer .close fa-icon{
+  transition: 0.5s all;
+  font-size: 1.2em;
+  color: #888;
+}
+
+.modal .modalContainer .close fa-icon:hover{
+  color: red;
+  font-size: 1.32em;
+}
+
+.modalContainer .container{
+  width: 95%;
+  padding: 2%;
+  padding-top: 1%;
   display: flex;
-  margin: auto;
-  border-bottom: solid 2px grey;
-  margin-top: 10px;
+  color: white;
+  transition: 0.5s all;
 }
 
-.left ,.right{
+.modalContainer .container:hover{
+  color: rgb(46, 255, 57);
+}
+
+.modalContainer .container .flecha{
+  width: 5%;
+  height: fit-content;
   margin-top: auto;
   margin-bottom: auto;
 }
 
-.left h1, .right h1{
+.modalContainer .container .flecha fa-icon{
+  width: 100%;
+  height: 100%;
+}
+
+.modalContainer .container .content{
+  width: 95%;
+  color: rgb(83, 83, 83);
+  display: flex;
+  margin: auto;
+  transition: 0.5s all;
+}
+
+.modalContainer .container .content .left ,.right{
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.modalContainer .container .content .right h1{
   font-size: 17px;
   margin-right: 5%;
 }
 
-.left{
+.modalContainer .container .content .left{
   width: 30%;
   margin-left: 5%;
   display: flex;
-  border-right: solid 1px grey;
+  /*border-right: solid 1px grey;*/
 }
 
-.right{
+.modalContainer .container .content .right{
   text-align: right;
   width: 70%;
 }
 
 .ocupada{
-  background-color: red;
+  border-bottom: solid 2px red;
+}
+
+.oc{
+  color: white;
+}
+
+.disponible{
+  border-bottom: solid 2px rgb(206, 206, 206);
+}
+
+.disponible:hover{
+  border-bottom: solid 2px rgb(46, 255, 57);
 }

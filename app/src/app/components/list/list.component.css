@@ -11,7 +11,7 @@
 }
 
 .cont:hover{
-  border: solid 3px rgb(88, 88, 88);
+  box-shadow: 1px 2px 23px 3px rgba(15,209,23,0.82);
 }
 
 .left ,.right{

@@ -1,16 +1,22 @@
-<div class="body">
-  <div class="container">
-    <button (click)="closeModal()">x</button>
+<div class="modal">
+  <div class="modalContainer">
+    <div class="close">
+      <fa-icon [icon]="closeIcon" (click)="closeModal()"></fa-icon>
+    </div>
     <li>
-      <div class="cont" *ngFor="let moto of motos" [ngClass]="{'ocupada': moto.estado!='disponible'}" (click)="openModalCliente(moto.id, moto.estado, moto.cliente)">
-        <div class="left">
-          <fa-icon [icon]="flechaIcono"></fa-icon>
-          <fa-icon [icon]="motoIcono"></fa-icon>
-          <span>{{moto.id}}</span>
+      <div class="container" *ngFor="let moto of motos" (click)="openModalCliente(moto.id, moto.estado, moto.cliente)">
+        <div class="flecha">
+          <fa-icon [icon]="flechaIcono" [ngClass]="{'oc': moto.estado!='disponible'}" style="font-size:1.4em"></fa-icon>
         </div>
-        <div class="right">
-          <h1>Estado: <span>{{moto.estado}}</span></h1>
-       </div>
+        <div class="content" [ngClass]="{'ocupada': moto.estado!='disponible', 'disponible': moto.estado=='disponible'}">
+          <div class="left">
+            <span style="font-weight: 600; margin-right: 3px;">{{moto.id}}</span>
+            <fa-icon [icon]="motoIcono" style="color: rgb(83, 83, 83);"></fa-icon>
+          </div>
+          <div class="right">
+            <h1>Estado: <span>{{moto.estado}}</span></h1>
+         </div>
+        </div>
       </div>
     </li>
   </div>

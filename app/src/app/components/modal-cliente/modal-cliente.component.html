@@ -1,8 +1,19 @@
 <div class="modal">
-  <div class="modal-content">
-    <button (click)="closeModal()">X</button>
-    <h2>Clave de la reserva</h2>
-    <input type="text" id="input" value="cliente..." name="input" #input>
-    <button (click)="validacion(input.value)">RESERVAR</button>
+  <div clasS="modal-content">
+    <div>
+      <div class="header">
+        <h2>Ingrese la clave</h2>
+        <div>
+          <fa-icon [icon]="closeIcon" style="font-size: 1.4em;" (click)="closeModal()"></fa-icon>
+        </div>
+      </div>
+    </div>
+    <div class="body">
+      <div>
+        <input type="text" id="input" value="cliente..." name="input" #input>
+        <fa-icon [icon]="exclamationIcon" [ngClass]="{'invalid': invalid, 'nn': !invalid}"></fa-icon>
+      </div>
+      <button (click)="validacion(input.value)">RESERVAR</button>
+    </div>
   </div>
 </div>

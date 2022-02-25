@@ -3,6 +3,7 @@ import { HttpService } from 'src/app/services/http.service';
 import { ModalService } from 'src/app/services/modal.service';
 import { faMotorcycle } from '@fortawesome/free-solid-svg-icons';
 import { faCaretRight } from '@fortawesome/free-solid-svg-icons';
+import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-modal',
@@ -13,8 +14,10 @@ import { faCaretRight } from '@fortawesome/free-solid-svg-icons';
 export class ModalComponent implements OnInit {
   @Input() intervalo: string =""
 
+  closeIcon = faCircleXmark
   flechaIcono = faCaretRight
   motoIcono = faMotorcycle
+
   cliente: any
   estado: string = ""
   id: number = 0
