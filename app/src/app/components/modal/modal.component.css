@@ -105,6 +105,14 @@
   color: white;
 }
 
+.o{
+  color: red;
+}
+
+.a{
+  color: rgb(83, 83, 83);
+}
+
 .disponible{
   border-bottom: solid 2px rgb(206, 206, 206);
 }

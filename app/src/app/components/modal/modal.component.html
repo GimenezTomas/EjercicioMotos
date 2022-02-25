@@ -11,7 +11,7 @@
         <div class="content" [ngClass]="{'ocupada': moto.estado!='disponible', 'disponible': moto.estado=='disponible'}">
           <div class="left">
             <span style="font-weight: 600; margin-right: 3px;">{{moto.id}}</span>
-            <fa-icon [icon]="motoIcono" style="color: rgb(83, 83, 83);"></fa-icon>
+            <fa-icon [icon]="motoIcono" [ngClass]="{'o': moto.estado!='disponible', 'a': moto.estado=='disponible'}"></fa-icon>
           </div>
           <div class="right">
             <h1>Estado: <span>{{moto.estado}}</span></h1>
