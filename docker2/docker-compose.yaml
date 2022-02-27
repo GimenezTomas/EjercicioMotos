@@ -1,14 +1,19 @@
 version: '3.8'
 services:
-  nginx:
+  nodejs:
     build:
-      context: ./
+      context: ../api
       dockerfile: Dockerfile
-    container_name: nginx-server2
+    container_name: api_ejercicio_motos
     restart: always
     ports: 
-      - 8080:80
-    volumes:
-      - ../app:/usr/share/nginx/html
-volumes:
-  app: {}
+      - 3000:3000
+  angular:
+    container_name: app-motos
+    build: 
+      context: ../app
+      dockerfile: Dockerfile
+    ports: 
+      - "4200:4200"
+    depends_on: 
+      - nodejs
